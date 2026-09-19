@@ -1,24 +1,13 @@
 const { test, expect } = require('@playwright/test');
-const { LoginPage } = require('../../pages/LoginPage');
 const { ProductsPage } = require('../../pages/ProductsPage');
 
 test.describe('Product functionality', () => {
 
-  test.beforeEach(async ({ page }) => {
-
-    const loginPage = new LoginPage(page);
-
-    await loginPage.navigate();
-
-    await loginPage.login(
-      'standard_user',
-      'secret_sauce'
-    );
-  });
-
   test('should display products after login', async ({ page }) => {
 
     const productsPage = new ProductsPage(page);
+
+    await productsPage.navigate();
 
     const productCount = await productsPage.getProductCount();
 
@@ -30,6 +19,8 @@ test.describe('Product functionality', () => {
 
     const productsPage = new ProductsPage(page);
 
+    await productsPage.navigate();
+
     await productsPage.addProductToCart('Sauce Labs Backpack');
 
     await expect(productsPage.cartButton).toContainText('1');
@@ -39,6 +30,8 @@ test.describe('Product functionality', () => {
   test('should sort products by price low to high', async ({ page }) => {
 
     const productsPage = new ProductsPage(page);
+
+    await productsPage.navigate();
 
     await productsPage.sortProducts('lohi');
 

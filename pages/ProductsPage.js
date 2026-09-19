@@ -8,6 +8,10 @@ class ProductsPage {
     this.inventoryContainer = page.locator('.inventory_container');
   }
 
+  async navigate() {
+    await this.page.goto('/inventory.html');
+  }
+
   async waitForProductsPage() {
     await this.inventoryContainer.waitFor({
       state: 'visible'
